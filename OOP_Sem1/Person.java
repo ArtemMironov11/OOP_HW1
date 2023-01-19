@@ -1,15 +1,14 @@
 package OOP_Sem1;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 public class Person {
-    public static List<Person> family = new ArrayList<>();
-    private String name;
+    public static Set<Person> family = new HashSet<>();
+    private final String name;
 
-    private boolean sex;
+    private final boolean sex;
 
     private Person mother;
 
@@ -17,12 +16,11 @@ public class Person {
 
     private Person child;
 
+    private Person sisterOrBrother;
+
     public Person(String name, boolean sex) {
         this.name = name;
-        this.sex = sex; // 0 - девочка
-        mother = null;
-        father = null;
-        child = null;
+        this.sex = sex; // false - девочка
         family.add(this);
     }
 
@@ -42,6 +40,11 @@ public class Person {
         else person.mother = this;
     }
 
+    public void setSisterOrBrother(Person person) {
+        this.sisterOrBrother = person;
+        person.sisterOrBrother = this;
+    }
+
     public String getName() {
         return name;
     }
@@ -57,10 +60,14 @@ public class Person {
         String optChild = Optional.ofNullable(child)
                 .map(Person::getName)
                 .orElse("детей пока нет");
+        String optSisterOrBrother = Optional.ofNullable(sisterOrBrother)
+                .map(Person::getName)
+                .orElse("сестра или брат не известны");
         return "У человека " +
                 "с именем " + name + '\'' +
                 ", маму зовут: " + optMother +
                 ", папу зовут: " + optFather +
+                ", сестру или брата зовут: " + optSisterOrBrother +
                 ", ребенка зовут: " + optChild;
     }
 }
