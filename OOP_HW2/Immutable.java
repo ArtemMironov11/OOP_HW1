@@ -1,4 +1,4 @@
-package OOP_Sem1.OOP_HW2;
+package OOP_HW2;
 
 import java.util.HashMap;
 import java.util.Map;
